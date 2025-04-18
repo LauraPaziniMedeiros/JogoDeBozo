@@ -1,5 +1,3 @@
-import sys
-
 from Placar import Placar
 
 NRODADAS = 10
