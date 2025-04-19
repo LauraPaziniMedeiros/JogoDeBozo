@@ -1,55 +1,70 @@
-from random import Random
+from Placar import Placar
 
-class Dado:
-    def __init__ (self, n = 6, seed = None):
-        self.lados = n
-        if seed == None:
-            self.r = Random()
-        else:
-            self.r = Random(seed)
-        self.rolar()
+NRODADAS = 10
+# PARA ALTERAR A FORMA COMO A CLASSE É MOSTRADA NO COMANDO PRINT()
+# VOCÊ TEM QUE DAR OVERRIDE NA PROPRIEDADE __repr__ DA SUA CLASSE. EX.:
+# class oi:
+#   def __repr__(self):
+#       return "eba"
+# teste = oi()
+# print(teste) -> eba
 
-    def rolar(self):
-        self.atual = self.r.randint(1, self.lados)
-        return self.atual
-    
-    def get_lado(self):
-        return self.atual
 
-    def imprime_dado (self):
-        if self.lados != 6:
-            print("Não há representação para este dado\n")
-            return
-        
-        # Definição das strings
-        s010 = "|  *  |\n"
-        s100 = "|*    |\n"
-        s001 = "|    *|\n"
-        s000 = "|     |\n"
-        s101 = "|*   *|\n"
-        s111 = "|* * *|\n"
-        s = "+-----+\n"
+def main():
+    seed = int(input("Digite a semente (zero para aleatório): "))
+    # rd = RolaDados(5, seed)
+    pl = Placar()
+    print(pl)
+    for rodada in range(0, NRODADAS):
+        print("****** Rodada ", (rodada + 1), sep="")
+        input("Pressione ENTER para lançar os dados")
+        # primeira tentativa
+        # rd.rolar()
+        print("1          2          3          4          5")
+        # print(rd)
 
-        if self.get_lado() == 1:
-            print(s000 + s010 + s000 + s)
-            return;
-        if self.get_lado() == 2:
-            print(s100 + s000 + s001 + s)
-            return;
-        if self.get_lado() == 3:
-            print(s100 + s010 + s001 + s)
-            return;
-        if self.get_lado() == 4:
-            print(s101 + s000 + s101 + s)
-            return;
-        if self.get_lado() == 5:
-            print(s101 + s010 + s101 + s)
-            return;
-        if self.get_lado() == 6:
-            print(s111 + s000 + s111 + s)
-            return;
+        # segunda tentativa
+        muda = input(
+            "Digite os números dos dados que quiser TROCAR. Separados por espaços."
+        )
+        # rd.rolar(muda)
+        print("1          2          3          4          5")
+        # print(rd)
+
+        # terceira tentativa
+        muda = input(
+            "Digite os números dos dados que quiser TROCAR. Separados por espaços."
+        )
+        # values = rd.rolar(muda)
+        print("1          2          3          4          5")
+        # print(rd)
+
+        print("\n\n")
+        print(pl)
+
+        pos = 0
+        while pos <= 0:
+            try:
+                pos = int(
+                    input("Escolha a posição que quer ocupar com essa jogada ===> ")
+                )
+                if pos > NRODADAS or pos <= 0:
+                    pos = 0
+                # pl.add(pos, values)
+            except:
+                pos = 0
+            if pos == 0:
+                print("Valor inválido. Posição ocupada ou inexistente.")
+
+        print("\n\n")
+        print(pl)
+
+    print("***********************************")
+    print("***")
+    print("*** Seu escore final foi: ", pl.getScore(), sep="")
+    print("***")
+    print("***********************************")
+
 
 if __name__ == "__main__":
-    d = Dado()
-    d.rolar()
-    d.imprime_dado()
+    main()
